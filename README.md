@@ -29,8 +29,8 @@ yavnikitenko@laboratory01:~/project/bed_files$ liftOver   H3K27ac_H9.ENCFF997MGG
 ```
 yavnikitenko@laboratory01:~/project/bed_files$ wc -l *
 ```
->   22160 ENCFF365GJO.bed.gz<bn>
->   27283 ENCFF997MGG.bed.gz
+>   22160 ENCFF365GJO.bed.gz<br/>
+>   27283 ENCFF997MGG.bed.gz<br/>
 >  226956 H3K27ac_H9.ENCFF365GJO.hg19.bed
 >  227245 H3K27ac_H9.ENCFF365GJO.hg38.bed
 >     578 H3K27ac_H9.ENCFF365GJO.unmapped.bed
