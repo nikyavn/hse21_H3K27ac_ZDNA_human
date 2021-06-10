@@ -127,52 +127,45 @@ yavnikitenko@laboratory01:~/project/bed_files$ wget https://raw.githubuserconten
 #### Анализ пересечений гистоновой метки и структуры ДНК
 
 С помощью bedtools были найдены пересечения гистоновой метки со структурами ДНК:
-```bash
-bedtools intersect  -a GSM3003539.merged.bed   -b  H3K9me3_H1.merge.hg19.bed  >  H3K9me3_H1.intersect_with_G4.bed
+```
+yavnikitenko@laboratory01:~/project/bed_files$ bedtools intersect  -a DeepZ.bed   -b  H3K27ac_H9.merge.hg19.bed  >  H3K27ac_H9.intersect_with_DeepZ.bed
 ```
 
-Полученный файл с помощью программы WinSCP были перенесены на ПК для дальнейшей работы.
-
-Далее с помощью [скрипта](src/len_hist.R) на R была получена гистограмма длин участков. 
+Далее с помощью R была получена гистограмма длин участков ([скрипт](src/len_hist.R)) и график расположения пиков относительно аннотированных генов ([скрипт](src/chip_seeker.R)). 
 Результаты:
 
-![H3K9me3_H1.intersect_with_G4](images/png/len_hist.H3K9me3_H1.intersect_with_G4.png)
+![len_hist.H3K27ac_H9.intersect_with_DeepZ](images/len_hist.H3K27ac_H9.intersect_with_DeepZ.png)
 
-Также с помощью [скрипта](src/ChipSeeker.R) на R был построен график расположения пиков относительно аннотированных генов.
+![chip_seeker.H3K27ac_H9.intersect_with_DeepZ.plotAnnoPie](images/chip_seeker.H3K27ac_H9.intersect_with_DeepZ.plotAnnoPie.pngg)
 
-Результаты:
-###### chip_seeker.H3K9me3_H1.intersect_with_G4.plotAnnoPie
-![chip_seeker.H3K9me3_H1.intersect_with_G4.plotAnnoPie](images/chip_seeker.H3K9me3_H1.intersect_with_G4.plotAnnoPie.png)
-
-С помощью [Genome Browser](http://genome.ucsc.edu/s/mausenkova/hse21_H3K9me3_G4_human) были визуализированы полученные участки:
+С помощью Genome Browser были визуализированы полученные участки.<br/>
+Сохраненная сессия в UCSC GenomeBrowser: http://genome.ucsc.edu/s/nikyavn/H3K27ac_H9_ZDNA
 
 ```
-track visibility=dense name="ENCFF587TWB"  description="H3K9me3_H1.ENCFF587TWB.hg19.filtered.bed"
+track visibility=dense name="DeepZ"  color=0,200,0  description="DeepZ"
+https://raw.githubusercontent.com/nikyavn/hse21_H3K27ac_ZDNA_human/main/data/DeepZ.bed
 
-track visibility=dense name="ENCFF697NMG"  description="H3K9me3_H1.ENCFF697NMG.hg19.filtered.bed"
-
-track visibility=dense name="ChIP_merge"  color=50,50,200   description="H3K9me3_H1.merge.hg19.bed"
-
-track visibility=dense name="G4"  color=0,200,0  description="G4_Li_K"
-
-track visibility=dense name="intersect_with_G4"  color=200,0,0  description="H3K9me3_H1.intersect_with_G4.bed"
-
+track visibility=dense name="intersect_with_DeepZ"  color=200,0,0  description="H3K4me3_A549.intersect_with_DeepZ.bed"
+https://raw.githubusercontent.com/nikyavn/hse21_H3K27ac_ZDNA_human/main/data/H3K27ac_H9.intersect_with_DeepZ.bed
 ```
 
-Скриншот иллюстрирует пересечения между гистоновой меткой и структурой ДНК:
+Скриншоты иллюстрируют пересечения между гистоновой меткой и структурой ДНК:
 
-![GenomeBrowser2](images/png/GenomeBrowser2.png)
+**chr3:128,997,274-128,998,395**<br/>
+![GenomeBrowser4](images/GenomeBrowser4.png)
 
-Например:
+**chr9:71,650,592-71,651,406**<br/>
+![GenomeBrowser3](images/GenomeBrowser3.png)
 
-| Позиция | Координаты |
-| ------- | ---------- |
-| 1 | chr1:13790959-13791063 |
-| 2 | chr1:13791788-13791843 |
 
-Далее с помощью [скрипта](src/ChIPpeakAnno.R) на R полученные пересечения были ассоциированы с ближайшими генами. Было проассоциировано 490 пиков, 354 уникальных гена.
+Далее с помощью [скрипта](src/ChIPpeakAnno.R) на R полученные пересечения были ассоциированы с ближайшими генами. Было проассоциировано **8431 пиков, 4623 уникальных гена.**
 
-С помощью [Panther](http://pantherdb.org/) был проведён GO-анализ для полученных уникальных генов. В [файле](data/pantherdb_GO_analysis.txt) представлен результат анализа. 
+С помощью [Panther](http://pantherdb.org/) был проведён GO-анализ для полученных уникальных генов. 
+
+![pantherdb_result](images/GO_analysis.png)
+
+В [файле](data/pantherdb_GO_analysis.txt) представлен результат анализа. 
+
 Далее приведены значимые категории(c минимальными значениями FDR):
-![pantherdb_result](images/png/pantherdb_result.png)
+![pantherdb_result](images/GO_analysis_1.png)
 
