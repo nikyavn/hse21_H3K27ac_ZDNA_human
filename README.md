@@ -1,26 +1,45 @@
 # hse21_H3K27ac_ZDNA_human
 # Проект по майнору "Биоинформатика", ВШЭ 2021
-## hse21_H3K9me3_G4_human
-*Усенкова Мария, 3 группа*
+## Никитенко Яна, 3 группа
+
 ### Исходные данные
 
-| Организм | Структура ДНК | Гистоновая метка | Тип клеток | Метка 1 | Метка 2 |
+| Организм | Гистоновая метка | Тип клеток | Метка 1 | Метка 2 | Структура ДНК |
 | -------- | ------------- | ---------------- | ---------- | ------- | ------- |
-| Human (hg19) | G4_seq_Li_K | H3K9me3 | H1 | [ENCFF587TWB](https://www.encodeproject.org/files/ENCFF046DTX/) | [ENCFF697NMG](https://www.encodeproject.org/files/ENCFF697NMG/) |
+| Human (hg19) | H3K27ac | H9  | [ENCFF997MGG](https://www.encodeproject.org/files/ENCFF997MGG/) | [ENCFF365GJO](https://www.encodeproject.org/files/ENCFF365GJO/) | ZDNA_DeepZ|
 
-Сохраненная сессия в UCSC GenomeBrowser: http://genome.ucsc.edu/s/mausenkova/hse21_H3K9me3_G4_human
 
 ### Анализ пиков гистоновой метки
-Для работы были скачаны на кластер архивы с .bed-файлами с данными. При распаковке архивов были оставлены только первые 5 столбцов данных:
-```bash
-wget https://www.encodeproject.org/files/ENCFF697NMG/@@download/ENCFF697NMG.bed.gz
-wget https://www.encodeproject.org/files/ENCFF587TWB/@@download/ENCFF587TWB.bed.gz
-zcat ENCFF587TWB.bed.gz | cut -f1-5>H3K9me3_H1.ENCFF587TWB.hg19.bed
-zcat ENCFF697NMG.bed.gz | cut -f1-5>H3K9me3_H1.ENCFF697NMG.hg19.bed
+Для работы необходимо скачать два .bed файла ChIP-seq экспериментов из ENCODE (пики гистоновой метки). Для анализа достаточно рассмотреть первых пять столбцов.
 ```
-*Так как изначально скачанные .bed файлы были версии hg19, утилиту liftover я не использовала.*
+yavnikitenko@laboratory01:~/project/bed_files$ wget https://www.encodeproject.org/files/ENCFF365GJO/@@download/ENCFF365GJO.bed.gz
+yavnikitenko@laboratory01:~/project/bed_files$ wget https://www.encodeproject.org/files/ENCFF997MGG/@@download/ENCFF997MGG.bed.gz
 
-Полученные файлы с помощью программы WinSCP были перенесены на ПК для дальнейшей работы.
+yavnikitenko@laboratory01:~/project/bed_files$  zcat ENCFF365GJO.bed.gz  |  cut -f1-5 > H3K27ac_H9.ENCFF365GJO.hg38.bed
+yavnikitenko@laboratory01:~/project/bed_files$  zcat ENCFF997MGG.bed.gz  |  cut -f1-5 > H3K27ac_H9.ENCFF997MGG.hg38.bed
+```
+Анализ проводится для версии генома hg19, поэтому необходимо конвертировать разметку данных. Для этого воспользуемся утилитой liftOver. 
+Скачиваем файл для перевода hg38 в hg19 и запускаем конвертацию для каждой метки.
+```
+yavnikitenko@laboratory01:~/project/bed_files$ wget https://hgdownload.cse.ucsc.edu/goldenpath/hg38/liftOver/hg38ToHg19.over.chain.gz
+yavnikitenko@laboratory01:~/project/bed_files$ liftOver   H3K27ac_H9.ENCFF365GJO.hg38.bed   hg38ToHg19.over.chain.gz   H3K27ac_H9.ENCFF365GJO.hg19.bed   H3K27ac_H9.ENCFF365GJO.unmapped.bed
+yavnikitenko@laboratory01:~/project/bed_files$ liftOver   H3K27ac_H9.ENCFF997MGG.hg38.bed   hg38ToHg19.over.chain.gz   H3K27ac_H9.ENCFF997MGG.hg19.bed   H3K27ac_H9.ENCFF997MGG.unmapped.bed
+```
+После конвертации можно заметить, что кол-во пиков изменилось. Быстрый способ заметить изменения - посчитать кол-во строк в файлах.
+```
+yavnikitenko@laboratory01:~/project/bed_files$ wc -l *
+```
+>   22160 ENCFF365GJO.bed.gz
+>   27283 ENCFF997MGG.bed.gz
+>  226956 H3K27ac_H9.ENCFF365GJO.hg19.bed
+>  227245 H3K27ac_H9.ENCFF365GJO.hg38.bed
+>     578 H3K27ac_H9.ENCFF365GJO.unmapped.bed
+>  268254 H3K27ac_H9.ENCFF997MGG.hg19.bed
+>  268678 H3K27ac_H9.ENCFF997MGG.hg38.bed
+>     848 H3K27ac_H9.ENCFF997MGG.unmapped.bed
+>    4753 hg38ToHg19.over.chain.gz
+> 1046755 total
+
 ##### Построение гистограмм длин участков
 С помощью [скрипта](src/len_hist.R) на R были получены гистограммы длин участков для каждого эксперимента. 
 
@@ -61,6 +80,8 @@ zcat ENCFF697NMG.bed.gz | cut -f1-5>H3K9me3_H1.ENCFF697NMG.hg19.bed
 Затем с помощью winSCP полученный файл был перенесен на ПК для дальнейшей работы.
 
 ##### Визуализация
+
+Сохраненная сессия в UCSC GenomeBrowser: http://genome.ucsc.edu/s/mausenkova/hse21_H3K9me3_G4_human
 
 С помощью [Genome Browser](http://genome.ucsc.edu/s/mausenkova/hse21_H3K9me3_human) были визуализированы полученные исходные наборы ChIP-seq пиков и их объединение:
 
