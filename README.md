@@ -31,32 +31,34 @@ yavnikitenko@laboratory01:~/project/bed_files$ wc -l *
 ```
 >   22160 ENCFF365GJO.bed.gz<br/>
 >   27283 ENCFF997MGG.bed.gz<br/>
->  226956 H3K27ac_H9.ENCFF365GJO.hg19.bed
->  227245 H3K27ac_H9.ENCFF365GJO.hg38.bed
->     578 H3K27ac_H9.ENCFF365GJO.unmapped.bed
->  268254 H3K27ac_H9.ENCFF997MGG.hg19.bed
->  268678 H3K27ac_H9.ENCFF997MGG.hg38.bed
->     848 H3K27ac_H9.ENCFF997MGG.unmapped.bed
->    4753 hg38ToHg19.over.chain.gz
-> 1046755 total
+>  226956 H3K27ac_H9.ENCFF365GJO.hg19.bed<br/>
+>  227245 H3K27ac_H9.ENCFF365GJO.hg38.bed<br/>
+>     578 H3K27ac_H9.ENCFF365GJO.unmapped.bed<br/>
+>  268254 H3K27ac_H9.ENCFF997MGG.hg19.bed<br/>
+>  268678 H3K27ac_H9.ENCFF997MGG.hg38.bed<br/>
+>     848 H3K27ac_H9.ENCFF997MGG.unmapped.bed<br/>
+>    4753 hg38ToHg19.over.chain.gz<br/>
+> 1046755 total<br/>
 
 ##### Построение гистограмм длин участков
-С помощью [скрипта](src/len_hist.R) на R были получены гистограммы длин участков для каждого эксперимента. 
+Строим гистограмму длин участков для каждого эксперимента до и после конвертации к нужной версии генома ([скрипт](src/len_hist.R)).
 
 Результаты:
+![len_hist.ENCFF365GJO.hg38](images/len_hist.H3K27ac_H9.ENCFF365GJO.hg38-1.png)
+![len_hist.ENCFF365GJO.hg19](images/len_hist.H3K27ac_H9.ENCFF365GJO.hg19-1.png)
 
-![len_hist.ENCFF697NMG.hg19](images/png/len_hist.H3K9me3_H1.ENCFF697NMG.hg19.png)
-
-![len_hist.ENCFF587TWB.hg19](images/png/len_hist.H3K9me3_H1.ENCFF587TWB.hg19.png)
+![len_hist.ENCFF997MGG.hg38](images/len_hist.H3K27ac_H9.ENCFF997MGG.hg38-1.png)
+![len_hist.ENCFF997MGG.hg19](images/len_hist.H3K27ac_H9.ENCFF997MGG.hg19-1.png)
 
 ##### Фильтрация пиков
-С помощью [скрипта](/src/filtered.R) на R были отфильтрованы пики длиной более 5000. 
+Проведя анализ, приведенных выше гистограм, можно сделать вывод о слишком длинных пиках, которые резко выбиваются из всего набора. 
+Установим порог в 5000 и отфильтруем данные. ([скрипт](/src/rm_outliers.R) )
 
 Результаты:
 
-![filter_peaks.ENCFF697NMG.hg19.filtered.hist](images/png/filter_peaks.H3K9me3_H1.ENCFF697NMG.hg19.filtered.hist.png)
+![ENCFF365GJO.hg19.filtered](images/len_hist.H3K27ac_H9.ENCFF365GJO.hg19.filtered-1.png)
 
-![filter_peaks.ENCFF587TWB.hg19.filtered.hist](images/png/filter_peaks.H3K9me3_H1.ENCFF587TWB.hg19.filtered.hist.png)
+![ENCFF997MGG.hg19.filtered](images/len_hist.H3K27ac_H9.ENCFF997MGG.hg19.filtered-1.png)
 
 ##### Расположение пиков
 
