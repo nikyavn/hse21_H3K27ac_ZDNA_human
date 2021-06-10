@@ -56,23 +56,24 @@ yavnikitenko@laboratory01:~/project/bed_files$ wc -l *
 Установим порог в 5000 и отфильтруем данные. ([скрипт](/src/rm_outliers.R))
 
 Результаты:<br/>
-**ENCFF365GJO**<br/>
+**ENCFF365GJO кол-во пиков - 226934**<br/>
 ![ENCFF365GJO.hg19.filtered](images/len_hist.H3K27ac_H9.ENCFF365GJO.hg19.filtered-1.png)
-**ENCFF997MGG**<br/>
+
+**ENCFF997MGG кол-во пиков- 268211**<br/>
 ![ENCFF997MGG.hg19.filtered](images/len_hist.H3K27ac_H9.ENCFF997MGG.hg19.filtered-1.png)
 
-- Можно заметить, что кол-во пиков изменилось незначитильно, но на гистограммах не заметны выделяющиеся по длине пики.
+- Можно заметить, что кол-во пиков изменилось незначительно, но на гистограммах не заметны выделяющиеся по длине пики.
 
 ##### Расположение пиков
 
-С помощью [скрипта](src/ChipSeeker.R) на R были построены графики расположения пиков гистоновых меток относительно аннотированных генов. 
+Смотрим, где располагаются пики гистоновой метки относительно аннотированных генов. Строим график типа пай-чарт с помощью R-библиотека ChIPseeker. ([скрипт](src/chip_seeker.R))
 
 Результаты:
 
-###### chip_seeker.ENCFF697NMG.hg19.filtered.plotAnnoPie
-![chip_seeker.ENCFF697NMG.hg19.filtered.plotAnnoPie](images/chip_seeker.H3K9me3_H1.ENCFF697NMG.hg19.filtered.plotAnnoPie.png)
-###### chip_seeker.ENCFF587TWB.hg19.filtered.plotAnnoPie
-![chip_seeker.ENCFF587TWB.hg19.filtered.plotAnnoPie](images/chip_seeker.H3K9me3_H1.ENCFF587TWB.hg19.filtered.plotAnnoPie.png)
+**ENCFF365GJO**<br/>
+![chip_seeker.H3K27ac_H9.ENCFF365GJO.hg19.filtered.plotAnnoPie](images/chip_seeker.H3K27ac_H9.ENCFF365GJO.hg19.filtered.plotAnnoPie.png)
+**ENCFF997MGG**<br/>
+![chip_seeker.H3K27ac_H9.ENCFF997MGG.hg19.filtered.plotAnnoPie](images/chip_seeker.H3K27ac_H9.ENCFF997MGG.hg19.filtered.plotAnnoPie.png)
 
 ##### Объединение файлов
 
