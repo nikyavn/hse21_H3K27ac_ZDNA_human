@@ -72,35 +72,40 @@ yavnikitenko@laboratory01:~/project/bed_files$ wc -l *
 
 **ENCFF365GJO**<br/>
 ![chip_seeker.H3K27ac_H9.ENCFF365GJO.hg19.filtered.plotAnnoPie](images/chip_seeker.H3K27ac_H9.ENCFF365GJO.hg19.filtered.plotAnnoPie.png)
+
 **ENCFF997MGG**<br/>
 ![chip_seeker.H3K27ac_H9.ENCFF997MGG.hg19.filtered.plotAnnoPie](images/chip_seeker.H3K27ac_H9.ENCFF997MGG.hg19.filtered.plotAnnoPie.png)
 
 ##### Объединение файлов
 
-Отсортированные файлы были загружены на кластер, отсортированы и объединены с помощью bedtools:
+Объединяем два набора отфильтрованных ChIP-seq пиков с помощью утилиты bedtools merge.
 
-```bash
- cat  *.filtered.bed  |   sort -k1,1 -k2,2n   |   bedtools merge   >  H3K9me3_H1.merge.hg19.bed
 ```
-
-Затем с помощью winSCP полученный файл был перенесен на ПК для дальнейшей работы.
+ cat  *.filtered.bed  |   sort -k1,1 -k2,2n   |   bedtools merge   >  H3K27ac_H9.merge.hg19.bed
+```
 
 ##### Визуализация
 
-Сохраненная сессия в UCSC GenomeBrowser: http://genome.ucsc.edu/s/mausenkova/hse21_H3K9me3_G4_human
+Сохраненная сессия в UCSC GenomeBrowser: http://genome.ucsc.edu/s/nikyavn/H3K27ac_H9_ZDNA
 
-С помощью [Genome Browser](http://genome.ucsc.edu/s/mausenkova/hse21_H3K9me3_human) были визуализированы полученные исходные наборы ChIP-seq пиков и их объединение:
-
-```
-track visibility=dense name="ENCFF587TWB"  description="H3K9me3_H1.ENCFF587TWB.hg19.filtered.bed"
-
-track visibility=dense name="ENCFF697NMG"  description="H3K9me3_H1.ENCFF697NMG.hg19.filtered.bed"
-
-track visibility=dense name="ChIP_merge"  color=50,50,200   description="H3K9me3_H1.merge.hg19.bed"
+С помощью Genome Browser были визуализированы наборы ChIP-seq пиков и их объединение:
 
 ```
+track visibility=dense name="ENCFF365GJO"  description="H3K27ac_H9.ENCFF365GJO.hg19.filtered.bed"
+https://raw.githubusercontent.com/nikyavn/hse21_H3K27ac_ZDNA_human/main/data/H3K27ac_H9.ENCFF365GJO.hg19.filtered.bed
 
-![GenomeBrowser1](images/png/GenomeBrowser1.png)
+track visibility=dense name="ENCFF997MGG"  description="H3K27ac_H9.ENCFF997MGG.hg19.filtered.bed"
+https://raw.githubusercontent.com/nikyavn/hse21_H3K27ac_ZDNA_human/main/data/H3K27ac_H9.ENCFF997MGG.hg19.filtered.bed
+
+track visibility=dense name="ChIP_merge"  color=50,50,200   description="H3K27ac_H9.merge.hg19.bed"
+https://raw.githubusercontent.com/nikyavn/hse21_H3K27ac_ZDNA_human/main/data/H3K27ac_H9.merge.hg19.bed
+
+```
+**chr3:187,432,810-187,482,809**<br/>
+![GenomeBrowser1](images/GenomeBrowser1.png)
+
+**chr9:43,144,429-45,300,347**<br/>
+![GenomeBrowser2](images/GenomeBrowser2.png)
 
 Объединение покрывает все наборы.
 
