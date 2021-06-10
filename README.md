@@ -136,7 +136,7 @@ yavnikitenko@laboratory01:~/project/bed_files$ bedtools intersect  -a DeepZ.bed 
 
 ![len_hist.H3K27ac_H9.intersect_with_DeepZ](images/len_hist.H3K27ac_H9.intersect_with_DeepZ.png)
 
-![chip_seeker.H3K27ac_H9.intersect_with_DeepZ.plotAnnoPie](images/chip_seeker.H3K27ac_H9.intersect_with_DeepZ.plotAnnoPie.pngg)
+![chip_seeker.H3K27ac_H9.intersect_with_DeepZ.plotAnnoPie](images/chip_seeker.H3K27ac_H9.intersect_with_DeepZ.plotAnnoPie.png)
 
 С помощью Genome Browser были визуализированы полученные участки.<br/>
 Сохраненная сессия в UCSC GenomeBrowser: http://genome.ucsc.edu/s/nikyavn/H3K27ac_H9_ZDNA
