@@ -41,24 +41,27 @@ yavnikitenko@laboratory01:~/project/bed_files$ wc -l *
 > 1046755 total<br/>
 
 ##### Построение гистограмм длин участков
-Строим гистограмму длин участков для каждого эксперимента до и после конвертации к нужной версии генома ([скрипт](src/len_hist.R)).
+Строим гистограмму длин участков для каждого эксперимента до и после конвертации к нужной версии генома. ([скрипт](src/len_hist.R))
 
-Результаты:
+Результаты **ENCFF365GJO** hg38 и hg19:<br/>
 ![len_hist.ENCFF365GJO.hg38](images/len_hist.H3K27ac_H9.ENCFF365GJO.hg38-1.png)
 ![len_hist.ENCFF365GJO.hg19](images/len_hist.H3K27ac_H9.ENCFF365GJO.hg19-1.png)
 
+Результаты **ENCFF997MGG** hg38 и hg19:<br/>
 ![len_hist.ENCFF997MGG.hg38](images/len_hist.H3K27ac_H9.ENCFF997MGG.hg38-1.png)
 ![len_hist.ENCFF997MGG.hg19](images/len_hist.H3K27ac_H9.ENCFF997MGG.hg19-1.png)
 
 ##### Фильтрация пиков
 Проведя анализ, приведенных выше гистограм, можно сделать вывод о слишком длинных пиках, которые резко выбиваются из всего набора. 
-Установим порог в 5000 и отфильтруем данные. ([скрипт](/src/rm_outliers.R) )
+Установим порог в 5000 и отфильтруем данные. ([скрипт](/src/rm_outliers.R))
 
-Результаты:
-
+Результаты:<br/>
+**ENCFF365GJO**<br/>
 ![ENCFF365GJO.hg19.filtered](images/len_hist.H3K27ac_H9.ENCFF365GJO.hg19.filtered-1.png)
-
+**ENCFF997MGG**<br/>
 ![ENCFF997MGG.hg19.filtered](images/len_hist.H3K27ac_H9.ENCFF997MGG.hg19.filtered-1.png)
+
+- Можно заметить, что кол-во пиков изменилось незначитильно, но на гистограммах не заметны выделяющиеся по длине пики.
 
 ##### Расположение пиков
 
