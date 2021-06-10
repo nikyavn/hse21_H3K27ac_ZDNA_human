@@ -104,41 +104,25 @@ https://raw.githubusercontent.com/nikyavn/hse21_H3K27ac_ZDNA_human/main/data/H3K
 **chr3:187,432,810-187,482,809**<br/>
 ![GenomeBrowser1](images/GenomeBrowser1.png)
 
-**chr9:43,144,429-45,300,347**<br/>
+**chr9:71,837,782-71,851,902**<br/>
 ![GenomeBrowser2](images/GenomeBrowser2.png)
 
 Объединение покрывает все наборы.
 
 #### Анализ участков вторичной структуры ДНК
 
-На кластер были скачены архивы с .bed-файлами с данными вторичной структуры ДНК:
+Скачиваем файл со вторичной структурой ДНК ZDNA_DeepZ
 
-```bash
-wget https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3003nnn/GSM3003539/suppl/GSM3003539_Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed.gz
-
-wget https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3003nnn/GSM3003539/suppl/GSM3003539_Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed.gz
+```
+yavnikitenko@laboratory01:~/project/bed_files$ wget https://raw.githubusercontent.com/Nazar1997/DeepZ/master/annotation/DeepZ.bed
 ```
 
-Распаковываем и удаляем не нужные для работы столбцы. Объединены в один файл с помощью bedtools:
-
-```bash
-zcat GSM3003539_Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed.gz | cut -f1-5 > GSM3003539_minus.bed
-zcat GSM3003539_Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed.gz | cut -f1-5 > GSM3003539_plus.bed
-
-cat GSM3003539_*.bed | sort -k1,1 -k2,2n | bedtools merge > GSM3003539.merged.bed 
-```
-Полученный файл с помощью программы WinSCP были перенесены на ПК для дальнейшей работы.
-
-Далее с помощью [скрипта](src/len_hist.R) на R была получена гистограмма длин участков. 
+Была получена гистограмма длин участков DeepZ ([скрипт](src/len_hist.R)) и график расположения пиков относительно аннотированных генов ([скрипт](src/chip_seeker.R)).
 Результаты:
 
-![len_hist.GSM3003539.merged](images/png/len_hist.GSM3003539.merged.png)
+![len_hist.DeepZ](images/len_hist.DeepZ-1.png)
 
-Также с помощью [скрипта](src/ChipSeeker.R) на R был построен график расположения пиков относительно аннотированных генов.
-
-Результаты:
-###### chip_seeker.GSM3003539.merged.plotAnnoPie
-![chip_seeker.GSM3003539.merged.plotAnnoPie](images/chip_seeker.GSM3003539.merged.plotAnnoPie.png)
+![chip_seeker.DeepZ.plotAnnoPie](images/chip_seeker.DeepZ.plotAnnoPie.png)
 
 #### Анализ пересечений гистоновой метки и структуры ДНК
 
